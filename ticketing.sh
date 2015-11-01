@@ -52,10 +52,10 @@ function search {
 	;;
 	2)
 		echo "Ingrese su Origen-Destino(FROM TO):"
-		read fm to
+		read fm to #SE INGRESAN SEPARADOS CON UN ESPACIO
 		echo "Numero de resultados:" 
-		grep  -i -c "$fm" to "$to"  vuelos.txt 
-		grep  -i $fm vuelos.txt | sed "s/^\([^,]*\),\([^,]*\),\([^,]*\),\([^,]*\)/\2   \1   \3   \4/"
+		grep  -i -c "$fm"' to '"$to" vuelos.txt 
+		grep  -i "$fm"' to '"$to" vuelos.txt | sed "s/^\([^,]*\),\([^,]*\),\([^,]*\),\([^,]*\)/\2   \1   \3/"
 	;;
 	esac
 			
