@@ -5,7 +5,7 @@ function listar {
 	echo -e "	\e[31mTripleA-\e[34mAIR \e[31mTicketing System\e[39m"
 	echo -e "\e[31mDepartureTime   Flight   \e[39mAirlines   Vacancy" 
 	echo "______________________________________________________"
-	sed -e "s/^\([^,]*\),\([^,]*\),\([^,]*\),\([^,]*\)/\2   \1   \3   \4/" -e "s/Yes/Ticket Available/g" -e "s/No/SOLD OUT/g" vuelos.txt
+	sed -e "s/^\([^,]*\),\([^,]*\),\([^,]*\),\([^,]*\)/\2   \1   \3   \4/" -e "s/Yes/Ticket Available/g" -e "s/   No/ SOLD OUT/g" vuelos.txt
 	
 }
 
