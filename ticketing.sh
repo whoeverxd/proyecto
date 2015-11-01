@@ -6,7 +6,16 @@ function listar {
 	echo -e "\e[31mDepartureTime   Flight   \e[39mAirlines   Vacancy" 
 	echo "______________________________________________________"
 	sed -e "s/^\([^,]*\),\([^,]*\),\([^,]*\),\([^,]*\)/\2   \1   \3   \4/" -e "s/Yes/Ticket Available/g" -e "s/   No/ SOLD OUT/g" vuelos.txt
-	
+	echo "Back to Main (y/n)"
+	read opt
+	case $opt in
+	y)
+		main
+	;;
+	n)
+		echo "Gracias por usar nuestro Sistema"
+	;;
+	esac
 }
 
 function seleccionAutomatica {
@@ -25,6 +34,8 @@ function seleccionManual {
 	done < asientos.txt
 }
 
+function main {
+clear
 echo -e "	\e[31mTripleA-\e[34mAIR \e[31mTicketing System"
 echo -e "\e[34m1) List all airlines and Flight times"
 echo "2) Fast booking (where system will automatically select best seat)"
@@ -52,7 +63,9 @@ case $option in
 	echo "Opcion Invalida"
 ;;
 esac
+}
 
+main
 
 
 
