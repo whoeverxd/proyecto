@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function listar {
-	cls
+	clear
 	echo -e "	\e[31mTripleA-\e[34mAIR \e[31mTicketing System\e[39m"
 	echo "DepartureTime   Flight   Airlines   Vacancy" 
 	echo "______________________________________________________"
