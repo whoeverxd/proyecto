@@ -28,11 +28,50 @@ function seleccionManual {
 	clear
 	echo -e "	\e[31mTripleA-\e[34mAIR \e[31mTicketing System\e[39m"
 	echo "To select airplane's seat manually"
-	echo "A B C D E F G"
-	while read p; do
-		echo  ${p:0:14}
-	done < asientos.txt
+	echo "   A B C D E F G"
+	let i=0
+	j=0
+	while [ $i -lt 7 ]
+	do
+	printf " $[$i]"
+		for j in 0 1 2 3 4 5 6 ;
+			do
+                printf " ${ARRAY[$j+$i*7]}"
+			done  
+	
+		i=$[$i+1]
+	echo 
+	done
+
 }
+function CargarDatos {
+	clear
+	i=0
+	while read -n1 c; do
+	
+    	if [ "$c" = "X" ] ; then
+			
+			ARRAY[$i]=$c
+			i=$[$i+1]
+		fi
+		
+		if [ "$c" = "B" ] ; then
+		
+			
+			ARRAY[$i]=$c
+			i=$[$i+1]
+		
+		fi
+		
+		 
+		 
+		
+done < asientos.txt
+echo loading process is done
+	
+	
+}
+
 
 function search {
 	clear
@@ -62,6 +101,8 @@ function search {
 }
 
 function main {
+
+CargarDatos
 clear
 echo -e "	\e[31mTripleA-\e[34mAIR \e[31mTicketing System"
 echo -e "\e[34m1) List all airlines and Flight times"
