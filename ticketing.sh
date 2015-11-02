@@ -35,8 +35,16 @@ function seleccionManual {
 	do
 	printf " $[$i]"
 		for j in 0 1 2 3 4 5 6 ;
-			do
-                printf " ${ARRAY[$j+$i*7]}"
+		do
+
+		if [ "${ARRAY[$j+$i*7]}" = "X" ] ; then
+		
+			printf " ${ARRAY[$j+$i*7]}"
+		else 
+			printf "  "
+		
+		fi
+               		 
 			done  
 	
 		i=$[$i+1]
