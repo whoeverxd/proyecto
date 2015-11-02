@@ -50,6 +50,71 @@ function seleccionManual {
 		i=$[$i+1]
 	echo 
 	done
+	
+	echo "Enter the number of seats you want"
+	read  n
+	echo "Enter the seat number(s) you want (eg: B3 or B1,C1,D1)" 
+	let i=1
+	let index
+	while [[ $i -lt $n+1 ]];
+	do
+		echo insert $i seat info
+		read -n1 l
+		read -n1 c
+		echo
+		case $l in
+	A)
+		
+		j=0
+	;;
+	B)
+		j=1
+	;;
+	C)
+		
+		j=2
+	;;
+	D)
+		j=3
+	;;	
+	E)
+		
+		j=4
+	;;
+	F)
+		j=5
+	;;
+	G)
+		
+		j=6
+	;;
+	
+	H)
+		j=7
+	;;
+		
+	esac
+
+	if [ "${ARRAY[$j+$c*7]}" = "X" ] ; then
+		
+			printf " available "
+		else 
+			printf " not available "
+		
+		fi
+	
+	
+	echo $j
+		
+		
+		
+		
+		
+		i=$[$i+1]
+
+	done
+
+
 
 }
 function CargarDatos {
