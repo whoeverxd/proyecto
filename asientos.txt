@@ -1,8 +1,8 @@
-X X X X X X X
+X X X B B X X
 X X X X X B B
-X X X X X X X
-X X X X X X X
-X X X X X X X
+B B X X X X X
+X X X B B X X
+X X B B B B B
 X X X X B X B
-X X X X X X X
+X X B B X X B
 
