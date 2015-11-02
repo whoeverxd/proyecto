@@ -6,6 +6,8 @@ function listar {
 	echo -e "\e[31mDepartureTime   Flight   \e[39mAirlines   Vacancy" 
 	echo "______________________________________________________"
 	sed -e "s/^\([^,]*\),\([^,]*\),\([^,]*\),\([^,]*\)/\2   \1   \3   \4/" -e "s/Yes/Ticket Available/g" -e "s/   No/ SOLD OUT/g" vuelos.txt
+	#En la linea anterior, sed identifica cada campo del archivo y a su vez le indica el orden en que se mostrara por pantalla
+	#tambien especifica el intercambio de Yes/No por sus correspondientes. 
 	echo "Back to Main (y/n)"
 	read opt
 	case $opt in
@@ -159,7 +161,9 @@ function search {
 		read dm
 		echo "Numero de resultados:" 
 		grep  -i -c $dm vuelos.txt 
+		#grep con flag -c muestra la cantidad de coincidencias encontradas, -i hace indiferentes mayus/minus
 		grep  -i $dm vuelos.txt | sed "s/^\([^,]*\),\([^,]*\),\([^,]*\),\([^,]*\)/\2   \1   \3   \4/" 
+		#aqui se muestran las lineas que coincidan con la busqueda, a su vez se usa sed para ordenar dicha salida
 
 	;;
 	2)
