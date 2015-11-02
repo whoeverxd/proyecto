@@ -168,13 +168,13 @@ function seleccionManual {
 	echo total price is $[$count * (270)]
 	
 	if [ 0 -lt $count ] ;then
-	echo "do you want to buy those seats?"
+	echo "Do you want to buy those seats?"
 	read opt
 		case $opt in
 		y) save
 		;;
 		n)
-			echo "come back whenever u can"
+			echo "Come back whenever u can"
 		;;
 		*) echo please insert a valid option
 		esac
