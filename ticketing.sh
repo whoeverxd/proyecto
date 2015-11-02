@@ -26,45 +26,94 @@ function seleccionAutomatica {
 	echo "To select airplane's seat automatically"
 }
 
-function seleccionManual {
-	clear
-	echo -e "	\e[31mTripleA-\e[34mAIR \e[31mTicketing System\e[39m"
-	echo "To select airplane's seat manually"
-	echo "   A B C D E F G"
+
+
+function save {
+echo
 	let i=0
 	j=0
+	count=0;
+	rm asientos.txt
+		let i=0
+	j=0
+	
+	while [ $i -lt 7 ]
+	do
+	
+		for j in 0 1 2 3 4 5 6 ;
+		do
+
+              case ${ARRAY[$j+$i*7]} in
+			  	X) printf "X ">>asientos.txt
+		;;
+				B) printf "B ">>asientos.txt
+		;;
+				*)	printf "X ">>asientos.txt
+		;;	
+			esac
+		
+			  
+			  
+		done  
+	i=$[$i+1]
+	echo >>asientos.txt
+	done
+		echo operation ended succesfully
+}	
+
+function print {
+echo
+echo "   A B C D E F G"
+	let i=0
+	j=0
+	
 	while [ $i -lt 7 ]
 	do
 	printf " $[$i]"
 		for j in 0 1 2 3 4 5 6 ;
 		do
 
-		if [ "${ARRAY[$j+$i*7]}" = "X" ] ; then
+              case ${ARRAY[$j+$i*7]} in
+			  	X) printf " X"
+		;;
+				B) printf "  "
+		;;
+				*)	printf '\e[1;34m%s\e[m' " B"
+		;;	
+			esac
 		
-			printf " ${ARRAY[$j+$i*7]}"
-		else 
-			printf "  "
-		
-		fi
-               		 
-			done  
-	
-		i=$[$i+1]
+			  
+			  
+		done  
+	i=$[$i+1]
 	echo 
 	done
 	
-	echo "Enter the number of seats you want"
-	read  n
+	
+
+}
+function seleccionManual {
+	clear
+	echo -e "	\e[31mTripleA-\e[34mAIR \e[31mTicketing System\e[39m"
+	echo "To select airplane's seat manually"
+	print
+	
+	
 	echo "Enter the seat number(s) you want (eg: B3 or B1,C1,D1)" 
-	let i=1
-	let index
-	while [[ $i -lt $n+1 ]];
+	read IN
+	arr=(`echo $IN | tr ',' ' '`)
+	n=${#arr[@]}
+	echo usted pide $n asientos
+
+	i=0
+	while [[ $i -lt $n ]];
 	do
-		echo insert $i seat info
-		read -n1 l
-		read -n1 c
-		echo
-		case $l in
+	actual=${arr[$i]}
+	
+	fila=${actual:0:1}
+	columna=${actual:1:1}
+	
+			case $fila in
 	A)
 		
 		j=0
@@ -97,26 +146,46 @@ function seleccionManual {
 		
 	esac
 
-	if [ "${ARRAY[$j+$c*7]}" = "X" ] ; then
+	echo ${ARRAY[$j+$columna*7]}
+	if [ "${ARRAY[$j+$columna*7]}" = "B" ] ; then
 		
 			printf " available "
-		else 
+			ARRAY[$j+$columna*7]="b"
+			count=$[$count+1]
+			echo $count
+	else 
 			printf " not available "
-		
+			echo $fila$columna
 		fi
 	
 	
-	echo $j
-		
-		
-		
-		
-		
-		i=$[$i+1]
-
+	
+	i=$[$i+1]
 	done
-
-
+	
+	print
+	
+	echo total price is $[$count * (270)]
+	
+	if [ 0 -lt $count ] ;then
+	echo "do you want to buy those seats?"
+	read opt
+		case $opt in
+		y) save
+		;;
+		n)
+			echo "come back whenever u can"
+		;;
+		*) echo please insert a valid option
+		esac
+	fi
+		
+		
+		echo 
+		main
+	
+	
+	
 
 }
 function CargarDatos {
