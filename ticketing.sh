@@ -24,6 +24,9 @@ function seleccionAutomatica {
 	clear
 	echo -e "	\e[31mTripleA-\e[34mAIR \e[31mTicketing System\e[39m"
 	echo "To select airplane's seat automatically"
+	echo "Ingrese la cantidad de asientos que desea:"
+	read cant
+	
 }
 
 
@@ -176,7 +179,7 @@ function seleccionManual {
 		n)
 			echo "Come back whenever u can"
 		;;
-		*) echo please insert a valid option
+		*) echo "Please insert a valid option"
 		esac
 	fi
 		
