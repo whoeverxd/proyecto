@@ -27,7 +27,6 @@ function seleccionAutomatica {
 }
 
 
-
 function save {
 echo
 	let i=0
@@ -236,7 +235,7 @@ function search {
 		#`promts the lines which match with the output , also reorders the prompt
 	;;
 	2)
-		echo "Iinput your Origin-Destination(FROM TO):"
+		echo "Input your Origin-Destination(FROM TO):"
 		read fm to #input is entered separated by a blank space
 		echo "Number of Matching results:" 
 		grep  -i -c "$fm"' to '"$to" flights.txt 
