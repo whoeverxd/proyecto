@@ -1,13 +1,13 @@
 #!/bin/bash
 
-function listar {  
+function list {  
 	clear
 	echo -e "	\e[31mTripleA-\e[34mAIR \e[31mTicketing System\e[39m"
 	echo -e "\e[31mDepartureTime   Flight   \e[39mAirlines   Vacancy" 
 	echo "______________________________________________________"
-	sed -e "s/^\([^,]*\),\([^,]*\),\([^,]*\),\([^,]*\)/\2   \1   \3   \4/" -e "s/Yes/Ticket Available/g" -e "s/   No/ SOLD OUT/g" vuelos.txt
-	#En la linea anterior, sed identifica cada campo del archivo y a su vez le indica el orden en que se mostrara por pantalla
-	#tambien especifica el intercambio de Yes/No por sus correspondientes. 
+	sed -e "s/^\([^,]*\),\([^,]*\),\([^,]*\),\([^,]*\)/\2   \1   \3   \4/" -e "s/Yes/Ticket Available/g" -e "s/   No/ SOLD OUT/g" flights.txt
+	# sed identifies every single field fom the file and  reorders the prompt order
+	#this line also verifies itself whether changing yes/no. 
 	echo "Back to Main (y/n)"
 	read opt
 	case $opt in
@@ -15,7 +15,7 @@ function listar {
 		main
 	;;
 	n)
-		echo "Gracias por usar nuestro Sistema"
+		echo -e "\e[31m"Thanks for using our system.""
 	;;
 	esac
 }
@@ -33,7 +33,7 @@ echo
 	let i=0
 	j=0
 	count=0;
-	rm asientos.txt
+	rm seats.txt
 		let i=0
 	j=0
 	
@@ -44,11 +44,11 @@ echo
 		do
 
               case ${ARRAY[$j+$i*7]} in
-			  	X) printf "X ">>asientos.txt
+			  	X) printf "X ">>seats.txt
 		;;
-				B) printf "B ">>asientos.txt
+				B) printf "B ">>seats.txt
 		;;
-				*)	printf "X ">>asientos.txt
+				*)	printf "X ">>seats.txt
 		;;	
 			esac
 		
@@ -56,7 +56,7 @@ echo
 			  
 		done  
 	i=$[$i+1]
-	echo >>asientos.txt
+	echo >>seats.txt
 	done
 		echo operation ended succesfully
 }	
@@ -92,7 +92,7 @@ echo "   A B C D E F G"
 	
 
 }
-function seleccionManual {
+function selectionM {
 	clear
 	echo -e "	\e[31mTripleA-\e[34mAIR \e[31mTicketing System\e[39m"
 	echo "To select airplane's seat manually"
@@ -103,7 +103,7 @@ function seleccionManual {
 	read IN
 	arr=(`echo $IN | tr ',' ' '`)
 	n=${#arr[@]}
-	echo usted pide $n asientos
+	echo you have choosen $n seats
 
 	i=0
 	while [[ $i -lt $n ]];
@@ -146,10 +146,11 @@ function seleccionManual {
 		
 	esac
 
-	echo ${ARRAY[$j+$columna*7]}
+	
 	if [ "${ARRAY[$j+$columna*7]}" = "B" ] ; then
 		
 			printf " available "
+			echo $fila$columna
 			ARRAY[$j+$columna*7]="b"
 			count=$[$count+1]
 			echo $count
@@ -188,7 +189,7 @@ function seleccionManual {
 	
 
 }
-function CargarDatos {
+function loaddata {
 	clear
 	i=0
 	while read -n1 c; do
@@ -210,7 +211,7 @@ function CargarDatos {
 		 
 		 
 		
-done < asientos.txt
+done < seats.txt
 echo loading process is done
 	
 	
@@ -226,21 +227,20 @@ function search {
 	read opt
 	case $opt in
 	1)
-		echo "Ingrese su fecha (DDMM):"
+		echo "input your date (DDMM):"
 		read dm
-		echo "Numero de resultados:" 
-		grep  -i -c $dm vuelos.txt 
-		#grep con flag -c muestra la cantidad de coincidencias encontradas, -i hace indiferentes mayus/minus
-		grep  -i $dm vuelos.txt | sed "s/^\([^,]*\),\([^,]*\),\([^,]*\),\([^,]*\)/\2   \1   \3   \4/" 
-		#aqui se muestran las lineas que coincidan con la busqueda, a su vez se usa sed para ordenar dicha salida
-
+		echo "Number of results:" 
+		grep  -i -c $dm flights.txt 
+		#grep con flag -c promts the matching number of lies , -i 
+		grep  -i $dm flights.txt | sed "s/^\([^,]*\),\([^,]*\),\([^,]*\),\([^,]*\)/\2   \1   \3   \4/" 
+		#`promts the lines which match with the output , also reorders the prompt
 	;;
 	2)
-		echo "Ingrese su Origen-Destino(FROM TO):"
-		read fm to #SE INGRESAN SEPARADOS CON UN ESPACIO
-		echo "Numero de resultados:" 
-		grep  -i -c "$fm"' to '"$to" vuelos.txt 
-		grep  -i "$fm"' to '"$to" vuelos.txt | sed "s/^\([^,]*\),\([^,]*\),\([^,]*\),\([^,]*\)/\2   \1   \3/"
+		echo "Iinput your Origin-Destination(FROM TO):"
+		read fm to #input is entered separated by a blank space
+		echo "Number of Matching results:" 
+		grep  -i -c "$fm"' to '"$to" flights.txt 
+		grep  -i "$fm"' to '"$to" flights.txt | sed "s/^\([^,]*\),\([^,]*\),\([^,]*\),\([^,]*\)/\2   \1   \3/"
 	;;
 	esac
 			
@@ -248,7 +248,7 @@ function search {
 
 function main {
 
-CargarDatos
+loaddata
 clear
 echo -e "	\e[31mTripleA-\e[34mAIR \e[31mTicketing System"
 echo -e "\e[34m1) List all airlines and Flight times"
@@ -259,22 +259,22 @@ echo -e "5) Quit\e[39m "
 read option
 case $option in
 1)
-	listar
+	list
 ;;
 2)
 	seleccionAutomatica
 ;;
 3)
-	seleccionManual
+	selectionM
 ;;
 4)
 	search
 ;;
 5)
-	echo "GRACIAS POR USAR NUESTRO SISTEMA"
+	echo "Thanks for using our system"
 ;;
 *)
-	echo "Opcion Invalida"
+	echo "Invalid option"
 ;;
 esac
 }
